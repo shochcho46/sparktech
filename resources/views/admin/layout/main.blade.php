@@ -144,4 +144,8 @@
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
+<<<<<<< HEAD
+=======
+    @stack('custom-js')
+>>>>>>> 35e163bd7f90f5df5020a429a5e3318219998335
 </html>
