@@ -3,7 +3,9 @@
 	<!--begin::Head-->
 	<head>
         @include('admin.layout.meta')
+        @vite('resources/css/app.css')
         @include('admin.layout.css')
+        @stack('custome-css')
 	</head>
 	<!--end::Head-->
 	<!--begin::Body-->
@@ -108,7 +110,7 @@
 		<!--begin::Drawers-->
             @include('admin.layout.rightsidebar')
 		<!--end::Demos drawer-->
-	
+
 		<!--end::Engage drawers-->
 		<!--begin::Engage toolbar-->
 		<div class="engage-toolbar d-flex position-fixed px-5 fw-bold zindex-2 top-50 end-0 transform-90 mt-5 mt-lg-20 gap-2">
@@ -117,7 +119,7 @@
 				<span id="kt_engage_demos_label">Demos</span>
 			</button>
 			<!--end::Demos drawer toggle-->
-			
+
 		</div>
 		<!--end::Engage toolbar-->
 		<!--begin::Scrolltop-->
@@ -133,10 +135,12 @@
 		</div>
 		<!--end::Scrolltop-->
 
-		
-		
+
+
 		<!--begin::Javascript-->
+        @vite('resources/js/app.js')
 		@include('admin.layout.js')
+        @stack('custome-js')
 		<!--end::Javascript-->
 	</body>
 	<!--end::Body-->
