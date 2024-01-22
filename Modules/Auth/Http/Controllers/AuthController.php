@@ -5,6 +5,7 @@ namespace Modules\Auth\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
@@ -36,14 +37,36 @@ class AuthController extends Controller
         //
     }
 
-    /**
-     * Show the specified resource.
-     * @param int $id
-     * @return Renderable
-     */
-    public function show($id)
+    public function validLogin(Request $request)
     {
-        return view('auth::show');
+
+        $validated = $request->validate([
+            'emailormobile' => 'required',
+            'password' => 'required',
+        ]);
+
+        $emailormobile = $request->emailormobile;
+
+        $credentialsemail = array("email" => $emailormobile, "password" => $request->password);
+        $credentialsmobile = array("mobile" => $emailormobile, "password" => $request->password);
+
+        if ((Auth::attempt($credentialsemail)) || (Auth::attempt($credentialsmobile))) {
+
+            $user = Auth::user();
+
+            if (($user->status == 0)) {
+
+                return back()->with('fail', 'This accout is in black listed');
+            } else {
+
+                return redirect()->route('dashboard.home');
+            }
+
+        } else {
+            return redirect()->route('dashboard.home');
+            return back()->with('fail', 'Wrong credentials');
+        }
+
     }
 
     /**
@@ -67,13 +90,9 @@ class AuthController extends Controller
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     * @param int $id
-     * @return Renderable
-     */
-    public function destroy($id)
+    public function logout()
     {
-        //
+        Auth::logout();
+        return redirect()->route('auth.signin');
     }
 }

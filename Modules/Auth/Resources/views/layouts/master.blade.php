@@ -15,12 +15,13 @@
 
         @yield('content')
 
-        <!--begin::Javascript-->
+        
+    </body>
+    <!--begin::Javascript-->
         @vite('resources/js/app.js')
 		@include('frontend.layout.js')
         @stack('custome-js')
-		<!--end::Javascript-->
-    </body>
+	<!--end::Javascript-->
 </html>
 
 

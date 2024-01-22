@@ -11,8 +11,9 @@
                 <!--begin::Wrapper-->
                 <div class="w-lg-500px p-10">
                     <!--begin::Form-->
-                    <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" data-kt-redirect-url="../../demo1/dist/index.html" action="#">
+                    <form class="form w-100" novalidate="novalidate" id="kt_sign_in_form" action="{{ route('auth.logincheck') }}" method="POST" enctype="multipart/form-data">
                         <!--begin::Heading-->
+                            @csrf
                         <div class="text-center mb-11">
                             <!--begin::Title-->
                             <h1 class="text-dark fw-bolder mb-3">Sign In</h1>
@@ -27,14 +28,20 @@
                         <!--begin::Input group=-->
                         <div class="fv-row mb-8">
                             <!--begin::Email-->
-                            <input type="text" placeholder="Email" name="email" autocomplete="off" class="form-control bg-transparent" />
+                            <input type="text" placeholder="Email Or Mobile" name="emailormobile" id="emailormobile" autocomplete="off" class="form-control bg-transparent" />
                             <!--end::Email-->
+                            @if($errors->has('emailormobile'))
+                                    <div class="error text-danger m-2">{{ $errors->first('emailormobile') }}</div>
+                            @endif
                         </div>
                         <!--end::Input group=-->
                         <div class="fv-row mb-3">
                             <!--begin::Password-->
                             <input type="password" placeholder="Password" name="password" autocomplete="off" class="form-control bg-transparent" />
                             <!--end::Password-->
+                            @if($errors->has('password'))
+                                <div class="error text-danger m-2">{{ $errors->first('password') }}</div>
+                            @endif
                         </div>
                         <!--end::Input group=-->
                         <!--begin::Wrapper-->
@@ -102,5 +109,5 @@
 </div>
 @endsection
 @push('custome-js')
-<script src="{{ asset('admin/js/custom/authentication/sign-in/general.js')}}"></script>
+{{--  <script src="{{ asset('admin/js/custom/authentication/sign-in/general.js')}}"></script>  --}}
 @endpush
